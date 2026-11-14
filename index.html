@@ -508,9 +508,60 @@ body.is-practice .tabbar{ display:none; }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{ animation:none !important; transition:none !important; }
 }
+.daily-chime{margin:20px 0;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--surface);}
+.daily-chime-head{display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.daily-chime-head label{display:flex;align-items:center;gap:8px;font-weight:600;}
+.daily-chime input[type="checkbox"]{accent-color:var(--lapis);width:18px;height:18px;}
+.daily-chime output{color:var(--lapis);font-weight:600;white-space:nowrap;}
+.daily-chime input[type="range"]{width:100%;margin:16px 0 6px;accent-color:var(--lapis);}
+.chime-ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--ink-2);}
+.daily-chime p{margin:12px 0 0;font-size:.8rem;color:var(--ink-2);line-height:1.5;}
+.auto-practice{display:inline-flex;align-items:center;gap:6px;margin:8px 0 0 8px;font-size:.78rem;cursor:pointer;}
+.auto-practice input{accent-color:var(--lapis);width:16px;height:16px;}
+.auto-banner{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);width:min(90%,440px);z-index:1000;padding:18px;background:var(--surface);color:var(--ink);border:1px solid var(--gold);border-radius:16px;box-shadow:var(--shadow);}
+.auto-banner[hidden]{display:none;}.auto-banner p{margin:0 0 12px;}
+.practice-sounds{width:min(100% - 40px,400px);margin:12px auto;color:#fff;display:grid;gap:10px;}
+.practice-sounds label{display:grid;gap:5px;font-size:.85rem;}.practice-sounds input{width:100%;accent-color:var(--gold);}
+
+/* Golden bell handle, matching the app logo. */
+#custom-chime-interval{height:44px;cursor:pointer;}
+#custom-chime-interval::-webkit-slider-thumb{width:36px;height:40px;border:0;border-radius:0;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2044%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%3E%3Cstop%20stop-color%3D%22%239C691F%22%2F%3E%3Cstop%20offset%3D%22.3%22%20stop-color%3D%22%23FFE8A1%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23E7BE63%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A57026%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%227%22%20r%3D%223%22%20fill%3D%22url%28%23g%29%22%20stroke%3D%22%23795321%22%20stroke-width%3D%221.3%22%2F%3E%3Cpath%20d%3D%22M7%2031c4-5%204-9%205-15%201-5%204-7%208-7s7%202%208%207c1%206%201%2010%205%2015Z%22%20fill%3D%22url%28%23g%29%22%20stroke%3D%22%23795321%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cellipse%20cx%3D%2220%22%20cy%3D%2231%22%20rx%3D%2213%22%20ry%3D%224%22%20fill%3D%22%2362451F%22%20stroke%3D%22%23EBCB7E%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2233%22%20r%3D%223.5%22%20fill%3D%22%23F5D58B%22%20stroke%3D%22%23906425%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M16%2014c-2%203-2%207-3%2010%22%20fill%3D%22none%22%20stroke%3D%22%23FFF2C3%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;box-shadow:none;filter:drop-shadow(0 2px 2px rgba(10,16,36,.3));margin-top:-18px;}
+#custom-chime-interval:focus-visible::-webkit-slider-thumb{box-shadow:none;filter:drop-shadow(0 0 3px var(--gold)) drop-shadow(0 0 2px var(--gold));}
+#custom-chime-interval::-moz-range-thumb{width:36px;height:40px;border:0;border-radius:0;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2044%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%3E%3Cstop%20stop-color%3D%22%239C691F%22%2F%3E%3Cstop%20offset%3D%22.3%22%20stop-color%3D%22%23FFE8A1%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23E7BE63%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A57026%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%227%22%20r%3D%223%22%20fill%3D%22url%28%23g%29%22%20stroke%3D%22%23795321%22%20stroke-width%3D%221.3%22%2F%3E%3Cpath%20d%3D%22M7%2031c4-5%204-9%205-15%201-5%204-7%208-7s7%202%208%207c1%206%201%2010%205%2015Z%22%20fill%3D%22url%28%23g%29%22%20stroke%3D%22%23795321%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cellipse%20cx%3D%2220%22%20cy%3D%2231%22%20rx%3D%2213%22%20ry%3D%224%22%20fill%3D%22%2362451F%22%20stroke%3D%22%23EBCB7E%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2233%22%20r%3D%223.5%22%20fill%3D%22%23F5D58B%22%20stroke%3D%22%23906425%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M16%2014c-2%203-2%207-3%2010%22%20fill%3D%22none%22%20stroke%3D%22%23FFF2C3%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;box-shadow:none;filter:drop-shadow(0 2px 2px rgba(10,16,36,.3));}
+#custom-chime-interval:focus-visible::-moz-range-thumb{box-shadow:none;filter:drop-shadow(0 0 3px var(--gold)) drop-shadow(0 0 2px var(--gold));}
+
+.practice-row-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.practice-row-actions .auto-practice{margin:0;min-height:40px;}
+.practice-begin{display:inline-flex;align-items:center;gap:9px;min-height:42px;padding:6px 15px 6px 7px;border:1px solid #C99A3D;border-radius:24px;background:linear-gradient(135deg,#FFF0C2,#EAC26B);color:#38290F;font:600 .82rem var(--sans);box-shadow:0 3px 9px rgba(128,88,20,.13),inset 0 1px 0 rgba(255,255,255,.7);cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.practice-begin-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.5);color:#77551C;box-shadow:inset 0 0 0 1px rgba(128,88,20,.12);}
+.practice-begin:hover{transform:translateY(-1px);box-shadow:0 5px 13px rgba(128,88,20,.23);}
+.practice-begin:active{transform:scale(.97);}
+.practice-begin:focus-visible{outline:3px solid var(--lapis);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){.practice-begin{transition:none;}}
+
+.segment-icon{display:inline-block;vertical-align:-5px;margin-right:8px;color:var(--gold-ink);flex-shrink:0;}
+.practice-sounds{display:block;border:1px solid rgba(245,216,155,.22);border-radius:16px;background:rgba(255,255,255,.035);overflow:hidden;}
+.practice-sounds summary{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:13px 16px;color:#F5D89B;font-size:.86rem;list-style:none;min-height:46px;}
+.practice-sounds summary::-webkit-details-marker{display:none;}
+.practice-sounds summary span{transition:transform .2s;}.practice-sounds[open] summary span{transform:rotate(180deg);}
+.practice-sounds summary:focus-visible{outline:2px solid #F5D89B;outline-offset:-4px;border-radius:14px;}
+.practice-sound-fields{display:grid;gap:14px;padding:4px 16px 16px;}
+.practice-sound-fields .sound-pick{width:100%;margin:4px 0 0;}
+#auto-countdown{font-size:1.06rem;font-weight:500;animation:countdown-breathe 2.4s ease-in-out infinite;}
+@keyframes countdown-breathe{0%,100%{opacity:1;}50%{opacity:.65;}}
+#custom-chime-interval::-webkit-slider-thumb{transform:rotate(var(--bell-angle,0deg));transform-origin:50% 18%;transition:transform .18s ease-out;}
+#custom-chime-interval::-moz-range-thumb{transform:rotate(var(--bell-angle,0deg));transform-origin:50% 18%;transition:transform .18s ease-out;}
+.completion-seal{display:flex;align-items:center;justify-content:center;width:50px;height:50px;margin:0 auto 12px;border:1px solid rgba(245,216,155,.5);border-radius:50%;color:#F5D89B;background:rgba(245,216,155,.09);box-shadow:0 0 24px rgba(245,216,155,.1);animation:seal-arrive .45s ease-out;}
+@keyframes seal-arrive{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
+@media(prefers-reduced-motion:reduce){#auto-countdown,.completion-seal{animation:none;}.practice-sounds summary span{transition:none;}#custom-chime-interval::-webkit-slider-thumb{transform:none;transition:none;}#custom-chime-interval::-moz-range-thumb{transform:none;transition:none;}}
 </style>
 </head>
 <body>
+<div id="auto-banner" class="auto-banner" hidden role="region" aria-label="Automatic practice countdown">
+  <p id="auto-countdown" role="timer"></p>
+  <button class="btn btn-primary" id="auto-start-now">Start now</button>
+  <button class="btn btn-quiet" id="auto-cancel">Cancel</button>
+</div>
 <div class="app">
 
   <!-- ============================ TODAY ============================ -->
@@ -533,11 +584,19 @@ body.is-practice .tabbar{ display:none; }
     </header>
 
     <div class="today-body">
-      <div id="today-cta"></div>
       <div class="timeline-wrap">
         <h2 class="section-h">Today's practice</h2>
         <ol class="timeline" id="today-schedule"></ol>
         <p class="next-chime" id="next-reminder"></p>
+      </div>
+      <div class="daily-chime">
+        <div class="daily-chime-head">
+          <label><input type="checkbox" id="custom-chime-on">Custom daily chime</label>
+          <output id="custom-chime-value" for="custom-chime-interval"></output>
+        </div>
+        <input type="range" id="custom-chime-interval" min="0" max="4" step="1" value="2" aria-label="Daily chime interval" aria-describedby="custom-chime-note">
+        <div class="chime-ticks" aria-hidden="true"><span>15 min</span><span>30 min</span><span>1 hr</span><span>2 hrs</span><span>3 hrs</span></div>
+        <p id="custom-chime-note"></p>
       </div>
       <div class="today-links">
         <button class="btn btn-quiet" data-go="journal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Write a reflection</button>
@@ -575,11 +634,16 @@ body.is-practice .tabbar{ display:none; }
       </div>
       <p class="dial-hint">Drag the gold point to change the time</p>
     </div>
+    <details class="practice-sounds"><summary>Session sounds <span aria-hidden="true">⌄</span></summary><div class="practice-sound-fields">
+      <label for="practice-ambient">Ambient sound<select class="field" id="practice-ambient"></select></label>
+      <label for="practice-volume">Ambient volume <output id="practice-volume-value"></output><input id="practice-volume" type="range" min="0" max="1" step="0.05"></label>
+      <label for="practice-end">End sound<select class="field" id="practice-end"></select></label>
     <button class="sound-pick" id="sound-summary" aria-label="Choose sounds">
       <span class="sp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 9v6M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></span>
       <span class="sp-text"><small>Sound</small><b id="sound-summary-text"></b></span>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </button>
+    </div></details>
     <div class="practice-controls">
       <button class="btn btn-dark-ghost" id="timer-reset" aria-label="Start over">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
@@ -664,6 +728,12 @@ body.is-practice .tabbar{ display:none; }
       </div>
       <p class="small muted" style="margin:8px 4px 0;">The lesson moves forward by one each day from here.</p>
 
+      <h2 class="group-label">Automatic practice</h2>
+      <div class="group"><div class="row-stack">
+        <label for="set-auto-countdown">Countdown before starting <output id="auto-delay-value">10 seconds</output></label>
+        <input type="range" id="set-auto-countdown" min="1" max="180" step="1" value="10">
+        <p class="small muted">1 second to 3 minutes. Enable Auto-start beside each practice on Today. Keep the app open; you can cancel each countdown.</p>
+      </div></div>
       <h2 class="group-label">Reminders</h2>
       <div class="group">
         <div class="row">
@@ -807,22 +877,13 @@ body.is-practice .tabbar{ display:none; }
         <option value="none">None</option>
         <optgroup label="Nature">
           <option value="rain">Gentle rain</option>
-          <option value="tropicalrain">Tropical rain</option>
-          <option value="rainstorm">Rainstorm</option>
-          <option value="ocean">Ocean waves</option>
-          <option value="stream">Forest stream</option>
-          <option value="night">Summer night</option>
           <option value="fire">Fireplace</option>
-          <option value="cave">Cave drips</option>
         </optgroup>
-        <optgroup label="Instruments">
-          <option value="bowl">Singing bowls</option>
-          <option value="crystalbowls">Crystal bowls</option>
-          <option value="drone">Warm drone</option>
-          <option value="tanpura">Tanpura</option>
-          <option value="flute">Japanese flute</option>
-          <option value="chimes">Wind chimes</option>
-          <option value="koshi">Koshi chimes</option>
+        <optgroup label="Noise">
+          <option value="white">White noise</option>
+          <option value="gray">Gray noise</option>
+          <option value="pink">Pink noise</option>
+          <option value="brown">Brown noise</option>
         </optgroup>
       </select>
       <button class="btn btn-quiet" id="ambient-preview" aria-pressed="false" style="flex:0 0 auto;">Listen</button>
@@ -1666,11 +1727,11 @@ function lessonMeta(n){
   if(review){
     // Review blocks have their own rhythm regardless of lesson number.
     if(n<=60)  S(10,10,0,0,'',true,'Review I: 2+ min per idea; begin and end the day with all five ideas.');
-    else if(n<=90)  S(15,15,0,0,'',true,'Review II: 15 min twice daily; repeat ideas every half hour.');
-    else if(n<=120) S(5,5,0,0,'',true,'Review III: 5 min morning and evening; repeat ideas on the hour and half hour.');
+    else if(n<=90)  S(15,15,0,30,'',true,'Review II: 15 min twice daily; repeat ideas every half hour.');
+    else if(n<=120) S(5,5,0,30,'',true,'Review III: 5 min morning and evening; repeat ideas on the hour and half hour.');
     else if(n<=150) S(5,5,5,0,'',false,'Review IV: 5 min at the start of each hour; theme thought wraps each period.');
-    else if(n<=180) S(15,15,0,0,'',true,'Review V: 15+ min morning and evening; repeat theme thought hourly.');
-    else            S(15,15,0,0,'',true,'Review VI: 15+ min morning and evening; repeat theme thought every hour.');
+    else if(n<=180) S(15,15,0,60,'',true,'Review V: 15+ min morning and evening; repeat theme thought hourly.');
+    else            S(15,15,0,60,'',true,'Review VI: 15+ min morning and evening; repeat theme thought every hour.');
   } else {
     switch(n){
       // ── Part I: Lessons 1–50 ──────────────────────────────────────────
@@ -2075,6 +2136,13 @@ function lessonMeta(n){
         }
     }
   }
+  // Where the Workbook asks for an hourly remembrance, ring a chime each hour.
+  // The chime carries the lesson's own words when the instruction quotes them.
+  if(!m.reminderIntervalMin && !m.hourlyMin && /^(Hourly|Pause each hour)/.test(m.special)){
+    m.reminderIntervalMin = 60;
+    const q = m.special.match(/["“]([^"”]+)["”]/);
+    if(q) m.reminderNote = q[1];
+  }
   return m;
 }
 
@@ -2136,6 +2204,8 @@ function saveSoon(key, getValue, ms=500){
    ===================================================================== */
 const DEFAULT_SETTINGS = {
   wake:'07:00', sleep:'22:00', startDate:dateKey(), theme:'system', fontSize:1,
+  autoMorning:false, autoDaily:false, autoEvening:false, autoCountdown:10,
+  customChimeOn:false, customChimeMinutes:60,
   remindersOn:true, sound:'chime', chimeRepeats:1, chimeVolume:0.5,
   endSound:'bowl', endSoundVolume:0.7, ambient:'none', ambientVolume:0.5,
   binaural:'none', binauralVolume:0.4
@@ -2328,18 +2398,7 @@ function renderSky(){
     }
   });
 
-  // Label the next one, hung inside the path where the sky is open
   const next = marks.find(k=>k.m > nowMin);
-  if(next && t > 0 && t < 1){
-    const tt = T(next.m), [x,y] = arcPoint(tt), [nx,ny] = arcNormal(tt);
-    const place = (d)=>[clamp(x - nx*d, 46, W-46), clamp(y - ny*d, 24, BASE-14)];
-    let [lx, ly] = place(30);
-    if(t >= 0 && t <= 1){ const [sx,sy] = arcPoint(t); if(Math.hypot(lx-sx, ly-sy) < 38) [lx, ly] = place(60); }
-    const text = `next ${clock(next.m)}`, w = text.length*5.6 + 16;
-    s += `<line x1="${(x-nx*5).toFixed(1)}" y1="${(y-ny*5).toFixed(1)}" x2="${(lx+nx*9).toFixed(1)}" y2="${(ly+ny*9).toFixed(1)}" stroke="#fff" stroke-opacity=".55" stroke-width=".8"/>`;
-    s += `<rect x="${(lx-w/2).toFixed(1)}" y="${(ly-9).toFixed(1)}" width="${w.toFixed(1)}" height="18" rx="9" fill="#0A1024" fill-opacity=".38" stroke="#fff" stroke-opacity=".25" stroke-width=".6"/>`;
-    s += `<text x="${lx.toFixed(1)}" y="${(ly+3.6).toFixed(1)}" text-anchor="middle" font-family="Albert Sans, system-ui" font-size="10" font-weight="500" fill="#fff" letter-spacing=".02em">${text}</text>`;
-  }
 
   // Early and evening practice: a bar for their length, and a medallion
   const end = (atStart, minutes, done)=>{
@@ -2363,13 +2422,11 @@ function renderSky(){
       <g transform="translate(318 22)"><circle r="10" fill="#F3EEDD" mask="url(#moonCut)"/></g>`;
   }
 
-  // Horizon labels: each practice named at its end, the rhythm in the middle
-  const lab = (x, anchor, time, name, mins)=>
-    `<text x="${x}" y="${BASE+18}" text-anchor="${anchor}" font-family="Albert Sans, system-ui" font-size="11.5" font-weight="600" fill="${ink}" fill-opacity=".92">${time}</text>
-     <text x="${x}" y="${BASE+32}" text-anchor="${anchor}" font-family="Spectral, Georgia, serif" font-style="italic" font-size="11" fill="${ink}" fill-opacity=".75">${name}, ${mins} min</text>`;
-  s += lab(20, 'start', settings.wake, 'Early practice', meta.morningMin);
-  s += lab(W-20, 'end', settings.sleep, 'Evening practice', meta.eveningMin);
-  if(caption) s += `<text x="${CX}" y="${BASE+25}" text-anchor="middle" font-family="Albert Sans, system-ui" font-size="10.5" font-weight="500" fill="${ink}" fill-opacity=".7">${caption}</text>`;
+  // Keep endpoint times, with the next audible reminder in the center.
+  const lab = (x, anchor, time)=>
+    `<text x="${x}" y="${BASE+18}" text-anchor="${anchor}" font-family="Albert Sans, system-ui" font-size="11.5" font-weight="600" fill="${ink}" fill-opacity=".92">${time}</text>`;
+  s += lab(20, 'start', settings.wake) + lab(W-20, 'end', settings.sleep);
+  s += `<text id="sun-next-chime" x="${CX}" y="105" text-anchor="middle" font-family="Albert Sans, system-ui" font-size="13" font-weight="500" fill="${ink}">${chimeCountdown()}</text>`;
 
   const arc = $('day-arc');
   arc.innerHTML = s;
@@ -2412,7 +2469,17 @@ function heroText(n){
 }
 const norm = (t)=>(t||'').toLowerCase().replace(/is(e|es|ed|ing)\b/g,'iz$1').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
 
+function practiceSegmentIcon(id){
+  const path = id==='morning'
+    ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>'
+    : id==='evening'
+    ? '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/><path d="M17 3v4m-2-2h4"/>'
+    : '<path d="M3 18h18M6 15a6 6 0 0 1 12 0M12 2v4M3 7l3 3m15-3-3 3M2 13h2m16 0h2"/>';
+  return `<svg class="segment-icon" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${path}</svg>`;
+}
+
 function renderToday(){
+  renderCustomChime();
   freshChecks();
   const n = currentLessonNumber(), meta = lessonMeta(n), cal = calendarLesson();
   const now = new Date();
@@ -2453,7 +2520,10 @@ function renderToday(){
   } else if(wordsHtml){
     rows[0].words = wordsHtml;
   }
-  if(middle) rows.push(middle);
+  if(!middle) middle = {id:'frequent',cls:'span',span:'Through the day',title:'Daily practice',dur:'',noBell:true};
+  middle.period = middle.period || 'hourly';
+  middle.mins = middle.mins || 1;
+  rows.push(middle);
   rows.push({ id:'evening', kind:'evening', cls:st.evening, time:settings.sleep, edit:'sleep', title:'Evening practice', dur:`${meta.eveningMin} min`, status:STATUS[st.evening], period:'evening', mins:meta.eveningMin });
 
   $('today-schedule').innerHTML = rows.map(r=>{
@@ -2466,30 +2536,25 @@ function renderToday(){
           ? '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M13.7 21a2 2 0 0 1-3.4 0"/><path d="M18.6 13A17.9 17.9 0 0 1 18 8a6 6 0 0 0-9.3-5M6.3 6.3A6 6 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M3 3l18 18"/></svg>'
           : '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>'}
       </button>`;
-    const begin = r.period ? `<button class="btn-mini" data-begin="${r.period}" data-mins="${r.mins}"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>Begin</button>` : '';
+    const begin = `<button class="practice-begin" data-begin="${r.period}" data-mins="${r.mins}" aria-label="${r.cls==='done'?'Repeat':'Begin'} ${r.id==='morning'?'morning':r.id==='evening'?'evening':'daily'} practice">
+      <span class="practice-begin-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5a1 1 0 0 1 1.5-.86l10 6.5a1 1 0 0 1 0 1.72l-10 6.5A1 1 0 0 1 8 18.5z"/></svg></span>
+      <span>${r.cls==='done'?'Practice again':'Begin practice'}</span>
+    </button>`;
+    const autoKey = r.id==='morning' ? 'autoMorning' : r.id==='evening' ? 'autoEvening' : 'autoDaily';
+    const autoLabel = r.id==='morning' ? 'morning' : r.id==='evening' ? 'evening' : 'daily';
+    const auto = `<label class="auto-practice"><input type="checkbox" data-auto="${autoKey}" ${settings[autoKey]?'checked':''} aria-label="Auto-start ${autoLabel} practice">Auto-start</label>`;
     return `<li class="tl-item is-${r.cls}${off && !r.noBell ? ' is-muted':''}">
       ${time}<span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-body">
-        <p class="tl-title">${r.title}${r.dur ? ` <span>${r.dur}</span>` : ''}</p>
+        <p class="tl-title">${practiceSegmentIcon(r.id)}${r.title}${r.dur ? ` <span>${r.dur}</span>` : ''}</p>
         ${r.status ? `<p class="tl-status">${r.status}</p>` : ''}
         ${r.words || ''}
-        ${r.cls==='done' ? '' : begin}
+        <div class="practice-row-actions">${begin}${auto}</div>
+        ${autoKey==='autoDaily' && settings.autoDaily ? `<p class="tl-status">Auto-start every ${dailyAutoInterval(meta)} min · ${meta.hourlyMin || 1} min session</p>` : ''}
       </div>
       ${bell}
     </li>`;
   }).join('');
-
-  // The one thing to do next
-  let next = null;
-  if(st.early!=='done' && (st.evening==='upcoming' || st.evening==='done')) next = { period:'early', label:'Begin early practice', mins:meta.morningMin };
-  if(st.evening==='due' || st.evening==='missed' || (st.early==='done' && st.evening!=='done')) next = { period:'evening', label:'Begin evening practice', mins:meta.eveningMin };
-  if(st.early==='done' && st.evening==='done') next = null;
-  $('today-cta').innerHTML = next
-    ? `<button class="cta" data-begin="${next.period}" data-mins="${next.mins}">
-         <span class="cta-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></span>
-         <span class="cta-text"><strong>${next.label}</strong><span>${next.mins} ${next.mins===1?'minute':'minutes'} with lesson ${n}${(st[next.period]==='upcoming') ? `, planned for ${next.period==='early'?settings.wake:settings.sleep}` : ''}</span></span>
-       </button>`
-    : `<div class="cta-done"><p>Both practices are done for today.</p><button class="btn btn-quiet" data-begin="${defaultPeriod()}" data-mins="0">Practice again</button></div>`;
 
   updateNextReminder();
   renderSky();
@@ -2541,9 +2606,33 @@ function saveRS(){ try{ localStorage.setItem('acim-reminder-state', JSON.stringi
 let slotMark = null;   // { every, slot } seen this session
 let hourMark = null;
 
+const CUSTOM_CHIME_INTERVALS = [15, 30, 60, 120, 180];
+const CUSTOM_CHIME_LABELS = ['15 min', '30 min', '1 hr', '2 hrs', '3 hrs'];
+let customChimeMark = null;
+function renderCustomChime(){
+  const i = CUSTOM_CHIME_INTERVALS.indexOf(settings.customChimeMinutes);
+  $('custom-chime-on').checked = settings.customChimeOn;
+  $('custom-chime-interval').value = i;
+  $('custom-chime-interval').setAttribute('aria-valuetext', `Every ${CUSTOM_CHIME_LABELS[i]}`);
+  $('custom-chime-value').textContent = `Every ${CUSTOM_CHIME_LABELS[i]}`;
+  $('custom-chime-note').textContent = settings.customChimeOn
+    ? `${settings.remindersOn ? 'Active' : 'Chimes paused'} · ${settings.wake}–${settings.sleep}, counted from wake time. Adds extra chimes alongside the lesson schedule. Keep the app open for reliable sound.`
+    : 'Move the slider to add extra chimes during your waking hours. Lesson chimes stay active.';
+}
+function checkCustomChime(now, wake, sleep, n){
+  const every = settings.customChimeMinutes;
+  const slot = Math.floor((now - wake) / (every * 60000));
+  const key = `${+wake}:${every}`;
+  if(now < wake || now >= sleep){ customChimeMark = null; return; }
+  if(customChimeMark && customChimeMark.key === key && slot > customChimeMark.slot && slot > 0){
+    // No backlog of sounds after the browser was asleep or suspended.
+    if(now - (+wake + slot * every * 60000) < 30000) fireReminder(reminderText(n));
+  }
+  customChimeMark = { key, slot };
+}
 function checkReminders(){
   if(rs.date !== dateKey()){ rs = freshReminderState(); saveRS(); }
-  if(!settings.remindersOn) return;
+  if(!settings.remindersOn){ customChimeMark = null; return; }
   const now = new Date();
   const { wake, sleep } = practiceWindow(now);
   const n = currentLessonNumber(), meta = lessonMeta(n);
@@ -2558,13 +2647,16 @@ function checkReminders(){
     if(!rs.evening && now >= sleep && now < +sleep+W) fire('evening', 'Time for your evening practice.');
   }
   const inWindow = now >= wake && now < sleep;
+  if(settings.customChimeOn){
+    checkCustomChime(now, wake, sleep, n);
+  }
   if(meta.reminderIntervalMin && inWindow){
     const every = meta.reminderIntervalMin;
     const slot = Math.floor((now - wake) / 60000 / every);
     if(!slotMark || slotMark.every !== every){ slotMark = { every, slot }; }
     else if(slot > slotMark.slot){
       slotMark.slot = slot;
-      if(!chimeOff('interval')) fireReminder(meta.reminderNote || lessonTitle(n));
+      if(!chimeOff('interval')) fireReminder(reminderText(n));
     }
   } else if(meta.hourlyMin && inWindow){
     const h = now.getHours();
@@ -2576,31 +2668,49 @@ function checkReminders(){
   }
 }
 function nextReminder(){
-  const now = new Date();
-  const { wake, sleep } = practiceWindow(now);
-  const meta = lessonMeta(currentLessonNumber());
-  const c = [];
-  if(!chimeOff('morning') && wake > now) c.push({ t:wake, label:'early practice' });
-  if(!chimeOff('evening') && sleep > now) c.push({ t:sleep, label:'evening practice' });
-  const every = meta.reminderIntervalMin || (meta.hourlyMin ? 60 : 0);
-  const id = meta.reminderIntervalMin ? 'interval' : 'hourly';
-  if(every && !chimeOff(id)){
-    let t;
-    if(meta.reminderIntervalMin){
-      const elapsed = Math.max(0, (now - wake) / 60000);
-      t = new Date(+wake + (Math.floor(elapsed/every)+1)*every*60000);
-    } else { t = new Date(now); t.setMinutes(60,0,0); }
-    if(t < sleep && t > now) c.push({ t, label: meta.reminderIntervalMin ? 'a short practice' : 'hourly practice' });
+  const now = new Date(), meta = lessonMeta(currentLessonNumber());
+  const candidates = [];
+  // Include both schedules and the five-minute practice warnings.
+  for(let day=0; day<2; day++){
+    const date = new Date(now); date.setDate(date.getDate()+day);
+    const {wake,sleep} = practiceWindow(date);
+    const enabled = id=>day > 0 || !chimeOff(id);
+    const add = (t,label)=>{ if(t>now) candidates.push({t,label}); };
+    if(enabled('morning')){
+      if(day || !rs.morningPre) add(new Date(+wake-300000),'early practice in 5 minutes');
+      if(day || !rs.morning) add(wake,'early practice');
+    }
+    if(enabled('evening')){
+      if(day || !rs.eveningPre) add(new Date(+sleep-300000),'evening practice in 5 minutes');
+      if(day || !rs.evening) add(sleep,'evening practice');
+    }
+    const interval = (every,label)=>{
+      const slot = Math.max(1,Math.floor((now-wake)/(every*60000))+1);
+      const t = new Date(+wake+slot*every*60000);
+      if(t<sleep) add(t,label);
+    };
+    if(meta.reminderIntervalMin && enabled('interval')) interval(meta.reminderIntervalMin,'a short practice');
+    else if(meta.hourlyMin && enabled('hourly')){
+      const t = new Date(Math.max(+now,+wake)); t.setMinutes(0,0,0);
+      if(t<=now || t<wake) t.setHours(t.getHours()+1);
+      if(t<sleep) add(t,'hourly practice');
+    }
+    if(settings.customChimeOn) interval(settings.customChimeMinutes,'your custom daily chime');
   }
-  if(!c.length){
-    if(chimeOff('morning') && chimeOff('evening')) return null;
-    const tomorrow = new Date(+wake + 86400000);
-    return { t:tomorrow, label:'early practice', tomorrow:true };
-  }
-  return c.reduce((a,b)=>a.t<b.t ? a : b);
+  return candidates.length ? candidates.reduce((a,b)=>a.t<b.t?a:b) : null;
+}
+function chimeCountdown(){
+  if(!settings.remindersOn) return 'Chimes off';
+  const next = nextReminder();
+  if(!next) return 'No chimes scheduled';
+  const minutes = Math.max(1,Math.ceil((next.t-Date.now())/60000));
+  const duration = minutes<60 ? `${minutes} min` : `${Math.floor(minutes/60)} hr${minutes%60 ? ` ${minutes%60} min` : ''}`;
+  return `Next chime in ${duration}`;
 }
 function updateNextReminder(){
   const el = $('next-reminder');
+  const clockLabel = $('sun-next-chime');
+  if(clockLabel) clockLabel.textContent = chimeCountdown();
   if(!settings.remindersOn){ el.innerHTML = `Chimes are off. <button class="link-btn" data-go="settings">Turn them on</button>`; return; }
   const nx = nextReminder();
   if(!nx){ el.textContent = 'All chimes are off for today.'; return; }
@@ -2611,6 +2721,18 @@ function updateNextReminder(){
   else if(mins < 60) when = `in ${mins} min`;
   else when = `at ${pad(nx.t.getHours())}:${pad(nx.t.getMinutes())}`;
   el.textContent = `Next chime ${when}, for ${nx.label}.`;
+}
+// What a short-period chime says: the lesson's own reminder, or for a
+// review day its central thought, or the ideas being reviewed.
+function reminderText(n){
+  const meta = lessonMeta(n);
+  if(meta.reminderNote) return meta.reminderNote;
+  const lines = lessonWords(n);
+  if(meta.review && lines.length){
+    if(!/^\(/.test(lines[0])) return lines[0];
+    return lines.map(l=>l.replace(/^\(\d+\)\s*/,'')).join(' ');
+  }
+  return lessonTitle(n);
 }
 function fireReminder(text){
   showToast(text);
@@ -2948,9 +3070,21 @@ function every(state, from, to, gap, ev){
   while(state.next < to){ ev(state.next); state.next += gap(); }
 }
 
-const AMBIENT_TRIM = {rain: 1.0, tropicalrain: 0.67, rainstorm: 0.62, ocean: 0.95, stream: 3.4, night: 2.2, fire: 0.73, cave: 1.6, bowl: 1.0, crystalbowls: 0.7, drone: 1.0, tanpura: 3.0, flute: 1.3, chimes: 0.9, koshi: 1.35};
+// Gray noise is a broad equal-loudness approximation; perception varies by listener.
+function noiseAmbient(kind){
+  return (ctx, pre)=>{
+    const source = noiseSrc(ctx, kind==='gray' ? 'white' : kind);
+    if(kind==='gray'){
+      const low = biq(ctx,'lowshelf',250); low.gain.value=10;
+      const dip = biq(ctx,'peaking',3200,0.7); dip.gain.value=-8;
+      const high = biq(ctx,'highshelf',9000); high.gain.value=4;
+      chain(source,low,dip,high,gainN(ctx,0.16),pre);
+    } else chain(source,gainN(ctx,0.32),pre);
+    return {keep:[source],stop(){}};
+  };
+}
+const AMBIENT_TRIM = {rain:1, fire:0.73};
 const AMBIENTS = {
-  /* ----- nature ----- */
   rain(ctx, pre, wet){
     const keep = [];
     const bed = noiseSrc(ctx, 'pink'); keep.push(bed);
@@ -2963,121 +3097,6 @@ const AMBIENTS = {
     const stop = scheduler(ctx, (a,b)=>{
       every(d, a, b, ()=>rnd(0.015,0.06), t=>burst(ctx, t, pre, { freq:rnd(1800,6500), q:rnd(3,8), level:rnd(0.04,0.14), decay:rnd(0.008,0.025), pan:rnd(-0.9,0.9) }));
       every(p, a, b, ()=>rnd(0.6,2.2), t=>chirp(ctx, t, wet, { f:rnd(600,1300), rise:rnd(1.3,1.8), dur:0.05, level:rnd(0.03,0.07), pan:rnd(-0.7,0.7) }));
-    });
-    return { keep, stop };
-  },
-  tropicalrain(ctx, pre, wet){
-    const keep = [];
-    const bed = noiseSrc(ctx, 'pink'); keep.push(bed);
-    const lp = biq(ctx,'lowpass',4200,0.6);
-    chain(bed, biq(ctx,'highpass',250,0.5), lp, gainN(ctx,0.7), pre);
-    keep.push(lfo(ctx, 0.06, 900, lp.frequency));
-    const body = noiseSrc(ctx, 'brown'); keep.push(body);
-    chain(body, biq(ctx,'lowpass',380,0.7), gainN(ctx,0.35), pre);
-    const leaf = {}, fine = {}, run = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(leaf, a, b, ()=>rnd(0.03,0.11), t=>burst(ctx, t, pre, { freq:rnd(550,2200), q:rnd(2,5), level:rnd(0.07,0.18), decay:rnd(0.04,0.09), pan:rnd(-0.9,0.9) }));
-      every(fine, a, b, ()=>rnd(0.01,0.04), t=>burst(ctx, t, pre, { freq:rnd(2500,7000), q:rnd(3,7), level:rnd(0.03,0.08), decay:rnd(0.006,0.02), pan:rnd(-1,1) }));
-      every(run, a, b, ()=>rnd(4,9), t=>{ for(let i=0;i<8;i++) burst(ctx, t+i*rnd(0.03,0.07), pre, { freq:rnd(400,900), q:3, level:rnd(0.05,0.1), decay:0.07, pan:rnd(-0.5,0.5) }); });
-    });
-    return { keep, stop };
-  },
-  rainstorm(ctx, pre, wet){
-    const keep = [];
-    const rain = noiseSrc(ctx, 'pink'); keep.push(rain);
-    const rainG = gainN(ctx, 0.75);
-    chain(rain, biq(ctx,'highpass',300,0.5), biq(ctx,'lowpass',9000,0.5), rainG, pre);
-    keep.push(lfo(ctx, 0.045, 0.2, rainG.gain));
-    const wind = noiseSrc(ctx, 'brown'); keep.push(wind);
-    const wbp = biq(ctx,'bandpass',420,0.8), windG = gainN(ctx, 0.5);
-    chain(wind, wbp, windG, pre);
-    keep.push(lfo(ctx, 0.05, 180, wbp.frequency), lfo(ctx, 0.031, 0.22, windG.gain, 3));
-    const drops = {}, thunder = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(drops, a, b, ()=>rnd(0.01,0.035), t=>burst(ctx, t, pre, { freq:rnd(1500,7000), q:rnd(2,6), level:rnd(0.04,0.12), decay:rnd(0.01,0.03), pan:rnd(-1,1) }));
-      every(thunder, a+6, b, ()=>rnd(16,34), t=>{
-        const dur = rnd(5,9), src = noiseSrc(ctx, 'brown', t);
-        const lp = biq(ctx,'lowpass',140,0.9), e = ctx.createGain(), p = panN(ctx, rnd(-0.6,0.6));
-        lp.frequency.setValueAtTime(220, t); lp.frequency.exponentialRampToValueAtTime(70, t+dur);
-        const n = 48, curve = new Float32Array(n); let v = 0;
-        for(let i=0;i<n;i++){ const x=i/(n-1); const env = x<0.12 ? x/0.12 : Math.pow(1-(x-0.12)/0.88, 1.6); v = 0.6*v + 0.4*rnd(0.4,1); curve[i] = env*v*rnd(1.2,1.8); }
-        e.gain.setValueCurveAtTime(curve, t, dur);
-        chain(src, lp, e, p, pre); src.stop(t+dur+0.1);
-        if(Math.random() < 0.3) burst(ctx, t+0.05, pre, { type:'highpass', freq:900, q:0.5, level:0.12, decay:0.25, pan:p.pan ? p.pan.value : 0 });
-      });
-    });
-    return { keep, stop };
-  },
-  ocean(ctx, pre, wet){
-    const keep = [];
-    const surf = noiseSrc(ctx, 'brown'); keep.push(surf);
-    chain(surf, biq(ctx,'lowpass',260,0.6), gainN(ctx,0.3), pre);
-    const waves = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(waves, a, b, ()=>rnd(7,12), t=>{
-        const D = rnd(9,14), pan = rnd(-0.45,0.45), p = panN(ctx, pan);
-        p.connect(pre);
-        const w = noiseSrc(ctx, 'pink', t), lp = biq(ctx,'lowpass',300,0.7), e = gainN(ctx,0);
-        lp.frequency.setValueCurveAtTime(new Float32Array([280,400,700,1500,2400,1600,900,600,450]), t, D);
-        e.gain.setValueCurveAtTime(new Float32Array([0,0.08,0.2,0.42,0.75,0.5,0.28,0.14,0.05,0]), t, D);
-        chain(w, lp, e, p); w.stop(t+D+0.1);
-        const f = noiseSrc(ctx, 'white', t), hp = biq(ctx,'highpass',3200,0.6), fe = gainN(ctx,0);
-        fe.gain.setValueCurveAtTime(new Float32Array([0,0,0,0.02,0.12,0.16,0.12,0.08,0.04,0.015,0]), t, D);
-        chain(f, hp, fe, p); f.stop(t+D+0.1);
-      });
-    });
-    return { keep, stop };
-  },
-  stream(ctx, pre, wet){
-    const keep = [];
-    const bed = noiseSrc(ctx, 'pink'); keep.push(bed);
-    chain(bed, biq(ctx,'bandpass',950,0.6), gainN(ctx,0.16), pre);
-    const spray = noiseSrc(ctx, 'white'); keep.push(spray);
-    chain(spray, biq(ctx,'highpass',4500,0.6), gainN(ctx,0.025), pre);
-    const bub = {}; let phase = Math.random()*10;
-    const stop = scheduler(ctx, (a,b)=>{
-      every(bub, a, b, ()=>{ phase += 0.02; return rnd(0.008,0.045)*(1.2 + 0.5*Math.sin(phase)); }, t=>{
-        const f = 450 + Math.pow(Math.random(), 1.8)*1900;
-        chirp(ctx, t, pre, { f, rise:rnd(1.25,1.9), dur:Math.min(0.08, Math.max(0.018, 26/f)), level:rnd(0.05,0.16), pan:rnd(-0.85,0.85) });
-      });
-    });
-    return { keep, stop };
-  },
-  night(ctx, pre, wet){
-    const keep = [];
-    const air = noiseSrc(ctx, 'brown'); keep.push(air);
-    chain(air, biq(ctx,'lowpass',320,0.6), gainN(ctx,0.16), pre);
-    const leaves = noiseSrc(ctx, 'pink'); keep.push(leaves);
-    const lg = gainN(ctx, 0.03);
-    chain(leaves, biq(ctx,'bandpass',1400,0.5), lg, pre);
-    keep.push(lfo(ctx, 0.08, 0.02, lg.gain));
-    // A distant trilling chorus
-    const trill = noiseSrc(ctx, 'white'); keep.push(trill);
-    const am = gainN(ctx, 0), amO = ctx.createOscillator(); amO.type = 'square'; amO.frequency.value = 27; keep.push(amO);
-    const amD = gainN(ctx, 0.05); amO.connect(amD); amD.connect(am.gain);
-    const swell = gainN(ctx, 0.6); keep.push(lfo(ctx, 0.09, 0.4, swell.gain));
-    chain(trill, biq(ctx,'bandpass',3150,14), am, swell, panN(ctx, 0.35), pre);
-    amO.start();
-    const crickets = [0,1,2,3].map(i=>({ f:rnd(4200,5200), pan:[-0.7,-0.2,0.3,0.75][i], lvl:[0.05,0.035,0.045,0.025][i], s:{}, period:rnd(0.55,0.95) }));
-    const owl = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      crickets.forEach(cr=>every(cr.s, a, b, ()=>cr.period*rnd(0.92,1.08), t=>{
-        const n = 3 + Math.floor(Math.random()*3);
-        for(let i=0;i<n;i++){
-          const o = ctx.createOscillator(); o.frequency.value = cr.f*rnd(0.997,1.003);
-          const e = ctx.createGain(), at = t + i*0.042;
-          e.gain.setValueAtTime(0, at); e.gain.linearRampToValueAtTime(cr.lvl, at+0.004); e.gain.linearRampToValueAtTime(0, at+0.02);
-          chain(o, e, panN(ctx, cr.pan), pre); o.start(at); o.stop(at+0.025);
-        }
-      }));
-      every(owl, a+8, b, ()=>rnd(35,70), t=>{
-        [0, 0.55, 0.85].forEach((at,i)=>{
-          const o = ctx.createOscillator(), f = i===0 ? 390 : 360; o.frequency.setValueAtTime(f, t+at); o.frequency.linearRampToValueAtTime(f*0.94, t+at+0.35);
-          const e = ctx.createGain(); e.gain.setValueAtTime(0, t+at); e.gain.linearRampToValueAtTime(0.05, t+at+0.06); e.gain.linearRampToValueAtTime(0, t+at+(i===0?0.4:0.28));
-          const p = panN(ctx, -0.55); chain(o, biq(ctx,'lowpass',900,0.7), e, p); p.connect(pre); p.connect(wet);
-          o.start(t+at); o.stop(t+at+0.5);
-        });
-      });
     });
     return { keep, stop };
   },
@@ -3105,138 +3124,8 @@ const AMBIENTS = {
     });
     return { keep, stop };
   },
-  cave(ctx, pre, wet){
-    const keep = [];
-    const air = noiseSrc(ctx, 'brown'); keep.push(air);
-    chain(air, biq(ctx,'lowpass',190,0.6), gainN(ctx,0.2), pre);
-    const drip = {}, pool = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(drip, a, b, ()=>rnd(0.6,2.4), t=>{
-        const pan = rnd(-0.8,0.8), g = gainN(ctx,0.45), p = panN(ctx, pan);
-        g.connect(p); p.connect(pre); p.connect(wet);
-        chirp(ctx, t, g, { f:rnd(800,1700), rise:rnd(1.6,2.3), dur:rnd(0.04,0.07), level:rnd(0.25,0.55) });
-      });
-      every(pool, a+2, b, ()=>rnd(3,7), t=>{
-        const g = gainN(ctx,0.4), p = panN(ctx, rnd(-0.5,0.5)); g.connect(p); p.connect(pre); p.connect(wet);
-        chirp(ctx, t, g, { f:rnd(380,650), rise:1.5, dur:0.09, level:0.4 });
-        chirp(ctx, t+0.09, g, { f:rnd(500,800), rise:1.3, dur:0.05, level:0.14 });
-      });
-    });
-    return { keep, stop };
-  },
-  /* ----- instruments ----- */
-  bowl(ctx, pre, wet){
-    const keep = [], bus = { dry:pre, wet };
-    const hum = ctx.createOscillator(); hum.frequency.value = 130.8; keep.push(hum);
-    const hg = gainN(ctx, 0.02); chain(hum, hg, pre); hum.start();
-    keep.push(lfo(ctx, 0.11, 0.012, hg.gain));
-    const pitches = [196, 261.6, 329.6, 220], s = {}; let i = 0;
-    const stop = scheduler(ctx, (a,b)=>{
-      every(s, a, b, ()=>rnd(9,16), t=>{ strike(ctx, t, bus, BOWL(pitches[i++ % pitches.length]), { pan:rnd(-0.4,0.4), vel:rnd(0.7,1) }); });
-    });
-    return { keep, stop };
-  },
-  crystalbowls(ctx, pre, wet){
-    const keep = [], notes = [261.6, 392, 523.3, 329.6], s = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(s, a, b, ()=>rnd(7,12), t=>{
-        const f = pick(notes), D = rnd(14,20), p = panN(ctx, rnd(-0.5,0.5)), out = gainN(ctx, 0);
-        out.gain.setValueCurveAtTime(new Float32Array([0,0.15,0.4,0.62,0.7,0.7,0.62,0.45,0.25,0.1,0]), t, D);
-        out.connect(p); p.connect(pre); const w = gainN(ctx, 0.6); p.connect(w); w.connect(wet);
-        [[1,0.6,0],[1,0.6,0.5],[2,0.06,0.2],[3,0.015,0]].forEach(([r,amp,beat])=>{
-          const o = ctx.createOscillator(); o.frequency.value = f*r + beat;
-          const g = gainN(ctx, amp*0.5); chain(o, g, out); o.start(t); o.stop(t+D+0.1);
-        });
-      });
-    });
-    return { keep, stop };
-  },
-  drone(ctx, pre, wet){
-    const keep = [];
-    const lp = biq(ctx,'lowpass',650,0.8), body = gainN(ctx, 0.11);
-    chain(body, lp, pre); const w = gainN(ctx, 0.35); lp.connect(w); w.connect(wet);
-    keep.push(lfo(ctx, 0.04, 260, lp.frequency));
-    [[73.4,1],[110,0.7],[146.8,0.55],[220,0.32]].forEach(([f,amp],i)=>{
-      [-4,4].forEach(cents=>{
-        const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = cents + rnd(-1,1);
-        const g = gainN(ctx, amp*0.5); chain(o, g, body); o.start(); keep.push(o);
-        if(i>=2) keep.push(lfo(ctx, rnd(0.03,0.07), amp*0.18, g.gain, rnd(0,4)));
-      });
-    });
-    const sub = ctx.createOscillator(); sub.frequency.value = 73.4; keep.push(sub);
-    chain(sub, gainN(ctx, 0.12), pre); sub.start();
-    return { keep, stop:()=>{} };
-  },
-  tanpura(ctx, pre, wet){
-    // Pa, Sa, Sa, low Sa: each pluck's bright buzz sweeps upward, the tanpura's jawari
-    const keep = [], seq = [110, 146.8, 146.8, 73.4], s = {}; let i = 0;
-    const stop = scheduler(ctx, (a,b)=>{
-      every(s, a, b, ()=>1.15, t=>{
-        const f = seq[i++ % 4], D = 5.5;
-        const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f*rnd(0.999,1.001);
-        const env = ctx.createGain(); env.gain.setValueAtTime(0, t); env.gain.linearRampToValueAtTime(0.12, t+0.015); env.gain.setTargetAtTime(0, t+0.02, D/5);
-        const body = biq(ctx,'lowpass',1400,0.6);
-        const buzz = biq(ctx,'bandpass',300,4), bg = gainN(ctx, 0.9);
-        buzz.frequency.setValueAtTime(f*2, t); buzz.frequency.exponentialRampToValueAtTime(f*24, t+2.4); buzz.frequency.exponentialRampToValueAtTime(f*10, t+D);
-        const p = panN(ctx, [-0.3,0.1,0.25,-0.1][(i-1)%4]);
-        o.connect(env); env.connect(body); body.connect(p); env.connect(buzz); buzz.connect(bg); bg.connect(p);
-        p.connect(pre); const w = gainN(ctx,0.35); p.connect(w); w.connect(wet);
-        o.start(t); o.stop(t+D+0.1);
-      });
-    });
-    return { keep, stop };
-  },
-  flute(ctx, pre, wet){
-    // Shakuhachi-like phrases: breathy attacks, bends from below, vibrato that grows
-    const keep = [], scale = [293.7, 349.2, 392, 440, 523.3, 587.3];
-    const phrase = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(phrase, a, b, ()=>rnd(7,12), t=>{
-        let at = t; const n = 1 + Math.floor(Math.random()*3);
-        for(let k=0;k<n;k++){
-          const f = pick(scale), dur = k===n-1 ? rnd(2.6,4.2) : rnd(1.2,2.2);
-          const o = ctx.createOscillator(); o.type = 'triangle';
-          o.frequency.setValueAtTime(f*0.94, at); o.frequency.exponentialRampToValueAtTime(f, at+0.35);
-          const vib = ctx.createOscillator(); vib.frequency.value = rnd(4.6,5.4);
-          const vd = ctx.createGain(); vd.gain.setValueAtTime(0, at); vd.gain.linearRampToValueAtTime(f*0.011, at+dur*0.7);
-          vib.connect(vd); vd.connect(o.frequency);
-          const tone = biq(ctx,'lowpass', f*3.2, 0.5), e = ctx.createGain();
-          e.gain.setValueAtTime(0, at); e.gain.linearRampToValueAtTime(0.16, at+0.28); e.gain.setValueAtTime(0.16, at+dur*0.6); e.gain.exponentialRampToValueAtTime(0.0001, at+dur);
-          const br = noiseSrc(ctx, 'white', at), bf = biq(ctx,'bandpass', f*2, 2.5), be = ctx.createGain();
-          be.gain.setValueAtTime(0, at); be.gain.linearRampToValueAtTime(0.09, at+0.06); be.gain.linearRampToValueAtTime(0.025, at+0.4); be.gain.exponentialRampToValueAtTime(0.0001, at+dur);
-          const p = panN(ctx, 0.05);
-          chain(o, tone, e, p); chain(br, bf, be, p); p.connect(pre); const w = gainN(ctx, 0.7); p.connect(w); w.connect(wet);
-          o.start(at); o.stop(at+dur+0.05); vib.start(at); vib.stop(at+dur+0.05); br.stop(at+dur+0.05);
-          at += dur + rnd(0.05,0.25);
-        }
-      });
-    });
-    return { keep, stop };
-  },
-  chimes(ctx, pre, wet){
-    const keep = [], bus = { dry:pre, wet };
-    const breeze = noiseSrc(ctx, 'pink'); keep.push(breeze);
-    const bg = gainN(ctx, 0.05); chain(breeze, biq(ctx,'bandpass',600,0.4), bg, pre);
-    keep.push(lfo(ctx, 0.07, 0.035, bg.gain));
-    const notes = [523.3, 587.3, 659.3, 784, 880], gust = {}, single = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(gust, a, b, ()=>rnd(6,14), t=>{ let at = 0; const n = 2 + Math.floor(Math.random()*6);
-        for(let k=0;k<n;k++){ strike(ctx, t+at, bus, TUBE(pick(notes), 1.25), { pan:rnd(-0.7,0.7), vel:rnd(0.4,1) }); at += rnd(0.15,0.6); } });
-      every(single, a+3, b, ()=>rnd(3,7), t=>strike(ctx, t, bus, TUBE(pick(notes), 1.25), { pan:rnd(-0.7,0.7), vel:rnd(0.25,0.5) }));
-    });
-    return { keep, stop };
-  },
-  koshi(ctx, pre, wet){
-    const keep = [], bus = { dry:pre, wet };
-    const breeze = noiseSrc(ctx, 'pink'); keep.push(breeze);
-    chain(breeze, biq(ctx,'bandpass',800,0.4), gainN(ctx,0.025), pre);
-    const notes = [698.5, 784, 880, 1046.5, 1174.7, 1396.9], sway = {};
-    const stop = scheduler(ctx, (a,b)=>{
-      every(sway, a, b, ()=>rnd(4,9), t=>{ let at = 0; const n = 4 + Math.floor(Math.random()*9);
-        for(let k=0;k<n;k++){ strike(ctx, t+at, bus, ROD(pick(notes)), { pan:rnd(-0.45,0.45), vel:rnd(0.3,0.9) }); at += rnd(0.06,0.28); } });
-    });
-    return { keep, stop };
-  }
+  white:noiseAmbient('white'), gray:noiseAmbient('gray'),
+  pink:noiseAmbient('pink'), brown:noiseAmbient('brown')
 };
 
 function buildAmbientNodes(ctx, type){
@@ -3329,7 +3218,47 @@ function defaultPeriod(){
   if(st.early!=='done' && new Date().getHours() < 14) return 'early';
   return 'evening';
 }
+// Auto-start scheduling is independent of whether a chime is muted.
+let autoPending = null, autoLastCheck = Date.now();
+function dailyAutoInterval(meta){ return meta.reminderIntervalMin || (meta.hourlyMin ? 60 : settings.customChimeOn ? settings.customChimeMinutes : 60); }
+function cancelAutoPractice(){ autoPending=null; $('auto-banner').hidden=true; }
+function queueAutoPractice(key,period,mins){
+  if(autoPending || T.running || document.hidden) return;
+  autoPending={key,period,mins,lesson:currentLessonNumber(),endAt:Date.now()+settings.autoCountdown*1000};
+  $('auto-banner').hidden=false;
+  updateAutoCountdown();
+}
+function startAutoPractice(){
+  const p=autoPending;
+  if(!p) return;
+  cancelAutoPractice();
+  if(document.hidden || T.running || !settings[p.key] || currentLessonNumber()!==p.lesson) return;
+  startPeriod(p.period,p.mins); beginTimer();
+}
+function updateAutoCountdown(){
+  if(!autoPending) return;
+  if(document.hidden || T.running || !settings[autoPending.key] || currentLessonNumber()!==autoPending.lesson){ cancelAutoPractice(); return; }
+  const remaining=Math.max(0,Math.ceil((autoPending.endAt-Date.now())/1000));
+  $('auto-countdown').textContent=`${autoPending.period==='early'?'Morning':autoPending.period==='evening'?'Evening':'Daily'} practice starts in ${remaining} seconds`;
+  if(!remaining) startAutoPractice();
+}
+function checkAutoPractice(){
+  const now=new Date(), previous=autoLastCheck; autoLastCheck=+now;
+  updateAutoCountdown();
+  // Never catch up missed sessions after a reload, suspension, or hidden tab.
+  if(document.hidden || T.running || autoPending || +now-previous>5000) return;
+  const {wake,sleep}=practiceWindow(now), meta=lessonMeta(currentLessonNumber());
+  const crossed=t=>previous<+t && +t<=+now;
+  if(settings.autoMorning && crossed(wake)) queueAutoPractice('autoMorning','early',meta.morningMin);
+  else if(settings.autoEvening && crossed(sleep)) queueAutoPractice('autoEvening','evening',meta.eveningMin);
+  else if(settings.autoDaily && now>wake && now<sleep){
+    const interval=dailyAutoInterval(meta)*60000, slot=Math.floor((now-wake)/interval);
+    if(slot>0 && crossed(+wake+slot*interval)) queueAutoPractice('autoDaily','hourly',meta.hourlyMin||1);
+  }
+}
+
 function startPeriod(period, mins){
+  cancelAutoPractice();
   const meta = lessonMeta(currentLessonNumber());
   if(!mins) mins = period==='evening' ? meta.eveningMin : period==='hourly' ? (meta.hourlyMin||meta.morningMin) : meta.morningMin;
   setupPractice(period, mins);
@@ -3404,6 +3333,7 @@ async function requestWakeLock(){
 function releaseWakeLock(){ try{ if(wakeLock) wakeLock.release(); }catch(e){} wakeLock = null; }
 
 function beginTimer(){
+  cancelAutoPractice();
   if(T.finished){ setupPractice(T.period, Math.round(T.total/60)); }
   startTicking();
   requestWakeLock();
@@ -3421,7 +3351,7 @@ function finishTimer(){
   bbStop(8);
   if(amb) ambientStop(10, playEndSound); else playEndSound();
   maybeThank();
-  $('practice-done').textContent = 'Carry today\'s lesson with you.';
+  $('practice-done').innerHTML = '<span class="completion-seal" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></span><span>Practice complete. Carry today’s lesson with you.</span>';
   renderTimer();
 }
 async function logSession(seconds){
@@ -3505,6 +3435,12 @@ function soundSummaryText(){
   return parts.join(' with ') + ', ' + ending;
 }
 function updateSoundUI(){
+  $('practice-ambient').innerHTML=$('ambient-select').innerHTML;
+  $('practice-end').innerHTML=$('end-sound-select').innerHTML;
+  $('practice-ambient').value=settings.ambient;
+  $('practice-end').value=settings.endSound;
+  $('practice-volume').value=settings.ambientVolume;
+  $('practice-volume-value').textContent=Math.round(settings.ambientVolume*100)+'%';
   const summary = soundSummaryText();
   $('sound-summary-text').textContent = summary;
   $('settings-sound-summary').textContent = summary.charAt(0).toUpperCase() + summary.slice(1);
@@ -3659,6 +3595,8 @@ function renderProgress(){
    Settings
    ===================================================================== */
 function renderSettings(){
+  $('set-auto-countdown').value=settings.autoCountdown;
+  $('auto-delay-value').textContent=settings.autoCountdown+' seconds';
   $('set-wake').value = settings.wake;
   $('set-sleep').value = settings.sleep;
   $('set-lesson').value = calendarLesson();
@@ -3810,6 +3748,29 @@ function renderAll(){
    Events
    ===================================================================== */
 function bindEvents(){
+  $('auto-cancel').addEventListener('click',cancelAutoPractice);
+  $('auto-start-now').addEventListener('click',startAutoPractice);
+  document.addEventListener('change',e=>{
+    const key=e.target.dataset.auto;
+    if(!['autoMorning','autoDaily','autoEvening'].includes(key)) return;
+    settings[key]=e.target.checked; autoLastCheck=Date.now();
+    if(autoPending && autoPending.key===key && !settings[key]) cancelAutoPractice();
+    saveSettings(); renderToday();
+  });
+  $('set-auto-countdown').addEventListener('input',e=>{
+    settings.autoCountdown=clamp(Number(e.target.value)||10,1,180);
+    $('auto-delay-value').textContent=settings.autoCountdown+' seconds';
+    saveSoon('acim-settings',()=>settings);
+  });
+  $('practice-ambient').addEventListener('change',e=>{
+    settings.ambient=e.target.value; saveSettings();
+    if(settings.ambient==='none') ambientStop();
+    else if(T.running || amb) ambientStart();
+    syncSoundsSheet();
+  });
+  $('practice-end').addEventListener('change',e=>{settings.endSound=e.target.value;saveSettings();syncSoundsSheet();});
+  $('practice-volume').addEventListener('input',e=>{setAmbientVolume(e.target.value);$('ambient-volume').value=settings.ambientVolume;$('practice-volume-value').textContent=Math.round(settings.ambientVolume*100)+'%';});
+
   document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click', ()=>go(t.dataset.tab)));
   document.addEventListener('click', (e)=>{
     const t = e.target.closest('[data-go],[data-begin],[data-bell],[data-act],[data-close],[data-lesson],[data-jtype],[data-jfilter],[data-jedit],[data-jdel],[data-sound],[data-preview]');
@@ -3885,7 +3846,7 @@ function bindEvents(){
   $('end-sound-select').innerHTML = '<option value="none">None</option>' + Object.keys(SOUND_LIBRARY).filter(k=>SOUND_LIBRARY[k].play).map(k=>`<option value="${k}">${SOUND_LIBRARY[k].name}</option>`).join('');
   $('ambient-select').addEventListener('change', (e)=>{
     settings.ambient = e.target.value; saveSettings();
-    if(amb){ if(settings.ambient==='none') ambientStop(); else ambientStart(); }
+    if(amb || T.running){ if(settings.ambient==='none') ambientStop(); else ambientStart(); }
     updateSoundUI();
   });
   $('ambient-preview').addEventListener('click', ()=>{
@@ -3893,7 +3854,7 @@ function bindEvents(){
     else if(settings.ambient==='none') showToast('Choose an ambient sound first');
     else ambientStart();
   });
-  $('ambient-volume').addEventListener('input', (e)=>setAmbientVolume(e.target.value));
+  $('ambient-volume').addEventListener('input', (e)=>{setAmbientVolume(e.target.value);updateSoundUI();});
   $('binaural-select').addEventListener('change', (e)=>{
     settings.binaural = e.target.value; saveSettings();
     if(bb.nodes) bbRetune(); else if(T.running) bbStart();
@@ -3936,7 +3897,25 @@ function bindEvents(){
   $('switch-reminders').addEventListener('click', async ()=>{
     settings.remindersOn = !settings.remindersOn; await saveSettings();
     if(settings.remindersOn && notifState()==='default') await askNotifications();
-    renderSettings(); updateNextReminder();
+    renderSettings(); renderCustomChime(); updateNextReminder();
+  });
+  const changeCustomChime = ()=>{
+    customChimeMark = null; slotMark = null; hourMark = null;
+    saveSettings(); renderCustomChime(); checkReminders(); updateNextReminder();
+  };
+  $('custom-chime-on').addEventListener('change', e=>{
+    settings.customChimeOn = e.target.checked;
+    if(settings.customChimeOn) settings.remindersOn = true;
+    changeCustomChime();
+  });
+  let bellWiggleTimer, bellLean = 1;
+  $('custom-chime-interval').addEventListener('input', e=>{
+    clearTimeout(bellWiggleTimer); bellLean *= -1;
+    e.target.style.setProperty('--bell-angle', `${bellLean*13}deg`);
+    bellWiggleTimer=setTimeout(()=>e.target.style.setProperty('--bell-angle','0deg'),180);
+    settings.customChimeMinutes = CUSTOM_CHIME_INTERVALS[Number(e.target.value)];
+    settings.customChimeOn = true; settings.remindersOn = true;
+    changeCustomChime();
   });
   $('notif-btn').addEventListener('click', askNotifications);
   $('set-repeats').addEventListener('change', (e)=>{ settings.chimeRepeats = parseInt(e.target.value,10)||1; saveSettings(); });
@@ -3962,7 +3941,8 @@ function bindEvents(){
 
   // Catch up whenever the app comes back into view
   document.addEventListener('visibilitychange', ()=>{
-    if(document.hidden) return;
+    if(document.hidden){ cancelAutoPractice(); autoLastCheck=Date.now(); return; }
+    autoLastCheck=Date.now();
     tick();
     if(T.running) requestWakeLock();
     checkReminders();
@@ -3978,6 +3958,11 @@ function normaliseSettings(s){
   if(!s || !s.theme) out.theme = (s && s.dark) ? 'dark' : 'system';
   delete out.dark;
   out.fontSize = [0.9,1,1.15].includes(Number(out.fontSize)) ? Number(out.fontSize) : 1;
+  out.customChimeMinutes = CUSTOM_CHIME_INTERVALS.includes(Number(out.customChimeMinutes)) ? Number(out.customChimeMinutes) : 60;
+  out.autoCountdown=clamp(Math.round(Number(out.autoCountdown)||10),1,180);
+  ['autoMorning','autoDaily','autoEvening'].forEach(k=>{out[k]=out[k]===true;});
+  out.customChimeOn = out.customChimeOn === true;
+  if(!['none','rain','fire','white','gray','pink','brown'].includes(out.ambient)) out.ambient = 'white';
   out.chimeRepeats = clamp(parseInt(out.chimeRepeats,10)||1, 1, 5);
   if(!/^\d{4}-\d{2}-\d{2}$/.test(out.startDate)) out.startDate = dateKey();
   return out;
@@ -4001,7 +3986,9 @@ async function init(){
   bindEvents();
   renderAll();
   checkReminders();
-  setInterval(checkReminders, 15000);
+  autoLastCheck=Date.now();
+  setInterval(checkAutoPractice,1000);
+  setInterval(()=>{ checkReminders(); if(currentScreen==='today') updateNextReminder(); }, 15000);
   setInterval(()=>{ if(currentScreen==='today' && !document.hidden){ renderSky(); updateNextReminder(); } }, 60000);
   checkTimeAway();
 }

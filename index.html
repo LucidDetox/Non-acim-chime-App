@@ -554,6 +554,9 @@ body.is-practice .tabbar{ display:none; }
 .completion-seal{display:flex;align-items:center;justify-content:center;width:50px;height:50px;margin:0 auto 12px;border:1px solid rgba(245,216,155,.5);border-radius:50%;color:#F5D89B;background:rgba(245,216,155,.09);box-shadow:0 0 24px rgba(245,216,155,.1);animation:seal-arrive .45s ease-out;}
 @keyframes seal-arrive{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
 @media(prefers-reduced-motion:reduce){#auto-countdown,.completion-seal{animation:none;}.practice-sounds summary span{transition:none;}#custom-chime-interval::-webkit-slider-thumb{transform:none;transition:none;}#custom-chime-interval::-moz-range-thumb{transform:none;transition:none;}}
+.dial-check{display:flex;align-items:center;justify-content:center;color:#F5D89B;filter:drop-shadow(0 0 12px rgba(245,216,155,.3));animation:seal-arrive .45s ease-out;}
+.dial-check[hidden],.dial-num[hidden]{display:none;}
+@media(prefers-reduced-motion:reduce){.dial-check{animation:none;}}
 </style>
 </head>
 <body>
@@ -629,6 +632,7 @@ body.is-practice .tabbar{ display:none; }
         </svg>
         <div class="dial-center">
           <div class="dial-num" id="dial-num">05:00</div>
+          <div class="dial-check" id="dial-check" hidden aria-hidden="true"><svg width="72" height="72" viewBox="0 0 80 80" fill="none"><path d="M18 41l15 15 30-33" stroke="#F5D89B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="dial-state" id="dial-state">Ready</div>
         </div>
       </div>
@@ -2349,12 +2353,21 @@ function renderSky(){
   const ink = bright ? '#16203A' : '#FFFFFF';
   const gold = '#F5D89B';
   const { W, CX, BASE } = ARC;
+  const sunColor = t < .18 ? '#FFD48B' : t > .78 ? '#FF9D78' : '#FFF3CC';
   let s = `<defs>
+    <linearGradient id="dayRibbon" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#FFD78E"/><stop offset=".48" stop-color="#FFF1CB"/><stop offset="1" stop-color="#F7A38D"/></linearGradient>
+    <radialGradient id="dawnWash"><stop stop-color="#FFD27C" stop-opacity=".48"/><stop offset="1" stop-color="#FFD27C" stop-opacity="0"/></radialGradient>
+    <radialGradient id="duskWash"><stop stop-color="#FF937B" stop-opacity=".42"/><stop offset="1" stop-color="#C58CBE" stop-opacity="0"/></radialGradient>
+    <linearGradient id="horizonLight"><stop stop-color="#FFD48B" stop-opacity=".7"/><stop offset=".5" stop-color="#FFF1CB" stop-opacity=".12"/><stop offset="1" stop-color="#FF9D78" stop-opacity=".7"/></linearGradient>
+    <clipPath id="aboveHorizon"><rect x="0" y="-4" width="360" height="140"/></clipPath>
+    <radialGradient id="movingHalo"><stop stop-color="${sunColor}" stop-opacity=".7"/><stop offset=".35" stop-color="${sunColor}" stop-opacity=".2"/><stop offset="1" stop-color="${sunColor}" stop-opacity="0"/></radialGradient>
     <radialGradient id="sunGlow"><stop offset="0" stop-color="#FFF4D6" stop-opacity=".95"/><stop offset=".35" stop-color="${gold}" stop-opacity=".5"/><stop offset="1" stop-color="${gold}" stop-opacity="0"/></radialGradient>
   </defs>`;
 
+  // Dawn and dusk are washes of light, not endpoint icons.
+  s += `<g clip-path="url(#aboveHorizon)"><ellipse cx="34" cy="136" rx="85" ry="53" fill="url(#dawnWash)"/><ellipse cx="326" cy="136" rx="85" ry="53" fill="url(#duskWash)"/></g>`;
   // Horizon
-  s += `<line x1="0" y1="${BASE}" x2="${W}" y2="${BASE}" stroke="${ink}" stroke-opacity=".28"/>`;
+  s += `<line x1="0" y1="${BASE}" x2="${W}" y2="${BASE}" stroke="url(#horizonLight)" stroke-width="1"/>`;
 
   // Sundial: a tick each hour, a numeral every three hours
   const firstHour = Math.ceil(wake.getMinutes() ? 60 - wake.getMinutes() : 0);
@@ -2369,9 +2382,13 @@ function renderSky(){
     }
   }
 
-  // The path: travelled part gold, the rest a fine dotted line
-  s += `<path d="${arcPath(0,1,120)}" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="1.5 4" stroke-linecap="round"/>`;
-  if(t > 0) s += `<path d="${arcPath(0, Math.min(t,1))}" fill="none" stroke="${gold}" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>`;
+  // Continuous elapsed trail, softly lit in the dawn-to-dusk colors.
+  if(t > 0){
+    const trail = arcPath(0, Math.min(t,1));
+    s += `<path d="${trail}" fill="none" stroke="url(#dayRibbon)" stroke-opacity=".07" stroke-width="13" stroke-linecap="round"/>`;
+    s += `<path d="${trail}" fill="none" stroke="url(#dayRibbon)" stroke-opacity=".17" stroke-width="8" stroke-linecap="round"/>`;
+    s += `<path d="${trail}" fill="none" stroke="url(#dayRibbon)" stroke-opacity=".98" stroke-width="3.5" stroke-linecap="round"/>`;
+  }
 
   // Practice through the day: beads for reminders, short bars for timed periods
   const marks = [];
@@ -2384,55 +2401,59 @@ function renderSky(){
     for(let m = firstHour || 60; m < span; m += 60) marks.push({ m, kind:'bar', dur:meta.hourlyMin });
     caption = `${meta.hourlyMin} min each hour`;
   }
-  const dense = marks.length > 40;
-  marks.forEach(k=>{
-    const tt = T(k.m), past = k.m <= nowMin;
-    if(k.kind === 'bar'){
-      const t1 = Math.max(T(k.m + k.dur), tt + ARC.MIN_BAR);
-      s += `<path d="${arcPath(tt, t1, 6)}" fill="none" stroke="${past ? gold : '#fff'}" stroke-opacity="${past ? 1 : .75}" stroke-width="5" stroke-linecap="round"/>`;
-    } else {
-      const [x,y] = arcPoint(tt), r = dense ? 1.35 : 2.3;
-      s += past
-        ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${gold}"/>`
-        : `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${sky.m}" stroke="#fff" stroke-opacity=".85" stroke-width="${dense ? .8 : 1}"/>`;
-    }
+  // Each future practice interval is visibly dashed, even with just one session left.
+  // Custom reminder-only chimes do not add practice sessions.
+  if(!marks.length && settings.autoDaily){
+    const every = dailyAutoInterval(meta);
+    for(let m=every;m<span;m+=every) marks.push({m});
+  }
+  const remaining = marks.filter(k=>k.m>nowMin).map(k=>k.m);
+  if(nowMin<0 && st.early!=='done') remaining.unshift(0);
+  if(nowMin<span && st.evening!=='done') remaining.push(span);
+  const futureStart = clamp(t,0,1);
+  remaining.forEach((m,i)=>{
+    const from = i===0 ? futureStart : T((remaining[i-1]+m)/2);
+    const to = i===remaining.length-1 ? 1 : T((m+remaining[i+1])/2);
+    const gap = Math.min(.022,(to-from)*.24);
+    s += `<path class="remaining-practice-segment" d="${arcPath(from+gap,to-gap)}" fill="none" stroke="url(#dayRibbon)" stroke-opacity=".78" stroke-width="4" stroke-linecap="round"><title>Practice at ${clock(m)}</title></path>`;
   });
 
   const next = marks.find(k=>k.m > nowMin);
 
-  // Early and evening practice: a bar for their length, and a medallion
+  // Quiet endpoint markers preserve the practice completion state
   const end = (atStart, minutes, done)=>{
     const tt = atStart ? 0 : 1;
-    const t1 = atStart ? Math.max(T(minutes), ARC.MIN_BAR) : Math.min(1 - T(minutes), 1 - ARC.MIN_BAR);
-    let out = `<path d="${arcPath(Math.min(tt,t1), Math.max(tt,t1), 6)}" fill="none" stroke="${done ? gold : '#fff'}" stroke-opacity="${done ? 1 : .8}" stroke-width="5" stroke-linecap="round"/>`;
+    let out = '';
     const [x,y] = arcPoint(tt);
-    out += done
-      ? `<circle cx="${x}" cy="${y}" r="7.5" fill="${gold}"/><path d="M${x-3.2} ${y+.3}l2.3 2.3 4.1-4.4" fill="none" stroke="#2A1D05" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`
-      : `<circle cx="${x}" cy="${y}" r="7" fill="${sky.h}" stroke="${bright ? 'rgba(22,32,58,.6)' : '#fff'}" stroke-width="1.6"/>`;
+    const endpointColor = atStart ? '#FFD78E' : '#F7A38D';
+    out += `<circle cx="${x}" cy="${y}" r="7.5" fill="${endpointColor}" stroke="${bright ? '#686568' : '#EBE5DC'}" stroke-width="1.6"/>`;
+    if(done) out += `<path d="M${x-3} ${y}l2.2 2.2 4-4" fill="none" stroke="#513E21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
     return out;
   };
-  s += end(true, meta.morningMin, st.early==='done') + end(false, meta.eveningMin, st.evening==='done');
 
   // Sun, or the moon once the day is over
   if(t >= -0.03 && t <= 1.03){
     const [x,y] = arcPoint(t);
-    s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="24" fill="url(#sunGlow)"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7.5" fill="#FFF1CF"/>`;
+    s += `<g clip-path="url(#aboveHorizon)"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="30" fill="url(#movingHalo)"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8" fill="${sunColor}"/><circle cx="${(x-1.4).toFixed(1)}" cy="${(y-1.7).toFixed(1)}" r="4.5" fill="#FFF8DF" opacity=".3"/></g>`;
   } else {
     s += `<mask id="moonCut"><rect x="-20" y="-20" width="40" height="40" fill="#fff"/><circle cx="5" cy="-4" r="10" fill="#000"/></mask>
       <g transform="translate(318 22)"><circle r="10" fill="#F3EEDD" mask="url(#moonCut)"/></g>`;
   }
 
+  s += end(true, meta.morningMin, st.early==='done') + end(false, meta.eveningMin, st.evening==='done');
+
   // Keep endpoint times, with the next audible reminder in the center.
   const lab = (x, anchor, time)=>
     `<text x="${x}" y="${BASE+18}" text-anchor="${anchor}" font-family="Albert Sans, system-ui" font-size="11.5" font-weight="600" fill="${ink}" fill-opacity=".92">${time}</text>`;
   s += lab(20, 'start', settings.wake) + lab(W-20, 'end', settings.sleep);
-  s += `<text id="sun-next-chime" x="${CX}" y="105" text-anchor="middle" font-family="Albert Sans, system-ui" font-size="13" font-weight="500" fill="${ink}">${chimeCountdown()}</text>`;
+  s += `<g id="arc-next-callout">${arcNextCallout()}</g>`;
 
   const arc = $('day-arc');
   arc.innerHTML = s;
   const said = { done:'done', due:'due now', missed:'not done yet', upcoming:'' };
   arc.setAttribute('aria-label', [
     `Early practice at ${settings.wake}, ${meta.morningMin} minutes${said[st.early] ? ', '+said[st.early] : ''}.`,
+    `${remaining.length} scheduled practices remaining.`,
     caption ? `Practice ${caption}${next ? `, next at ${clock(next.m)}` : ''}.` : '',
     `Evening practice at ${settings.sleep}, ${meta.eveningMin} minutes${said[st.evening] ? ', '+said[st.evening] : ''}.`
   ].filter(Boolean).join(' '));
@@ -2699,18 +2720,26 @@ function nextReminder(){
   }
   return candidates.length ? candidates.reduce((a,b)=>a.t<b.t?a:b) : null;
 }
-function chimeCountdown(){
-  if(!settings.remindersOn) return 'Chimes off';
-  const next = nextReminder();
-  if(!next) return 'No chimes scheduled';
-  const minutes = Math.max(1,Math.ceil((next.t-Date.now())/60000));
-  const duration = minutes<60 ? `${minutes} min` : `${Math.floor(minutes/60)} hr${minutes%60 ? ` ${minutes%60} min` : ''}`;
-  return `Next chime in ${duration}`;
+function arcNextCallout(){
+  const nx = settings.remindersOn ? nextReminder() : null;
+  const now = new Date(), {wake,sleep}=practiceWindow(now);
+  const text = !settings.remindersOn ? 'chimes off' : !nx ? 'no chimes scheduled'
+    : `next in ${Math.max(1,Math.ceil((nx.t-now)/60000))} min`;
+  const width = text.length*5.8+24, y=118;
+  let x=ARC.CX, line='';
+  if(nx && nx.t>=wake && nx.t<=sleep){
+    const position=clamp((nx.t-wake)/(sleep-wake),0,1);
+    const [px,py]=arcPoint(position);
+    // Keep the pill well inside the arc, including near either endpoint.
+    x=clamp(px,ARC.CX-30,ARC.CX+30);
+    line=`<path d="M${px.toFixed(1)} ${py.toFixed(1)} L${x.toFixed(1)} ${y-10}" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width=".8"/>`;
+  }
+  return `${line}<rect x="${(x-width/2).toFixed(1)}" y="${y-10}" width="${width}" height="21" rx="10.5" fill="#203451" fill-opacity=".63"/><text x="${x.toFixed(1)}" y="${y+4}" text-anchor="middle" font-family="Albert Sans, system-ui" font-size="10.5" font-weight="600" fill="#FFFFFF">${text}</text>`;
 }
 function updateNextReminder(){
   const el = $('next-reminder');
-  const clockLabel = $('sun-next-chime');
-  if(clockLabel) clockLabel.textContent = chimeCountdown();
+  const callout = $('arc-next-callout');
+  if(callout) callout.innerHTML = arcNextCallout();
   if(!settings.remindersOn){ el.innerHTML = `Chimes are off. <button class="link-btn" data-go="settings">Turn them on</button>`; return; }
   const nx = nextReminder();
   if(!nx){ el.textContent = 'All chimes are off for today.'; return; }
@@ -3031,7 +3060,7 @@ const SOUND_LIBRARY = {
   vibrate:{ name:'Vibration only' }
 };
 
-function playChime(key, volume, repeats){
+function playChime(key, volume, repeats, leadTime = 0.05){
   const entry = SOUND_LIBRARY[key] || SOUND_LIBRARY.bowl;
   const vol = volume !== undefined ? volume : settings.chimeVolume;
   const times = repeats !== undefined ? repeats : settings.chimeRepeats;
@@ -3041,12 +3070,12 @@ function playChime(key, volume, repeats){
   const level = vol*vol*entry.level;              // squared feels even across the slider
   const bus = { dry:gainN(ctx, level), wet:gainN(ctx, level) };
   bus.dry.connect(S.out); bus.wet.connect(S.verb);
-  const t0 = ctx.currentTime + 0.05;
+  const t0 = ctx.currentTime + leadTime;
   let end = t0;
   for(let i=0; i<times; i++) end = Math.max(end, entry.play(ctx, t0 + i*entry.gap, bus));
   setTimeout(()=>{ try{ bus.dry.disconnect(); bus.wet.disconnect(); }catch(e){} }, (end - ctx.currentTime + 5)*1000);
 }
-function playEndSound(){ if(settings.endSound!=='none') playChime(settings.endSound, settings.endSoundVolume, 1); }
+function playEndSound(){ if(settings.endSound!=='none') playChime(settings.endSound, settings.endSoundVolume, 1, 0); }
 
 /* ---------- ambient soundscapes ----------
    Each builder adds layers to `pre` and schedules events ahead of time
@@ -3292,6 +3321,8 @@ function drawDialTicks(){
 function fmt(sec){ return pad(Math.floor(sec/60)) + ':' + pad(sec%60); }
 function renderTimer(){
   $('dial-num').textContent = fmt(T.remaining);
+  $('dial-num').hidden = T.finished;
+  $('dial-check').hidden = !T.finished;
   $('dial-state').textContent = T.finished ? 'Complete' : T.running ? 'In practice' : (T.remaining < T.total ? 'Paused' : 'Ready');
   const frac = T.total ? 1 - T.remaining/T.total : 0;
   const fill = $('dial-fill');
@@ -3303,7 +3334,7 @@ function renderTimer(){
   const dial = $('dial');
   dial.setAttribute('aria-valuemax', T.total);
   dial.setAttribute('aria-valuenow', T.remaining);
-  dial.setAttribute('aria-valuetext', `${Math.floor(T.remaining/60)} minutes ${T.remaining%60} seconds remaining`);
+  dial.setAttribute('aria-valuetext', T.finished ? 'Practice complete' : `${Math.floor(T.remaining/60)} minutes ${T.remaining%60} seconds remaining`);
   $('timer-btn').textContent = T.finished ? 'Begin again' : T.running ? 'Pause' : (T.remaining < T.total ? 'Resume' : 'Begin');
   $('screen-practice').classList.toggle('is-running', T.running);
 }
@@ -3315,12 +3346,14 @@ function tick(){
 }
 function startTicking(){
   if(T.remaining <= 0) return;
-  clearInterval(T.iv);
+  clearInterval(T.iv); clearTimeout(T.endTimeout);
   T.running = true; T.endAt = Date.now() + T.remaining*1000; T.segStart = Date.now();
   T.iv = setInterval(tick, 250);
+  T.endTimeout = setTimeout(tick, Math.max(0,T.endAt-Date.now()));
   renderTimer();
 }
 function stopTicking(){
+  clearTimeout(T.endTimeout);
   if(!T.running) return;
   T.practised += (Date.now() - T.segStart)/1000;
   T.running = false; clearInterval(T.iv);
@@ -3344,14 +3377,17 @@ function pauseTimer(){ stopTicking(); releaseWakeLock(); bbStop(); }
 function toggleTimer(){ T.running ? pauseTimer() : beginTimer(); }
 function resetTimer(){ pauseTimer(); setupPractice(T.period, Math.round(T.total/60)); }
 function finishTimer(){
+  if(T.finished) return;
+  clearTimeout(T.endTimeout);
   if(T.running){ T.practised += (Date.now() - T.segStart)/1000; }
   T.running = false; clearInterval(T.iv); T.remaining = 0; T.finished = true;
+  playEndSound();
   releaseWakeLock();
   logSession(Math.min(T.total, Math.round(T.practised)));
   bbStop(8);
-  if(amb) ambientStop(10, playEndSound); else playEndSound();
+  if(amb) ambientStop(10);
   maybeThank();
-  $('practice-done').innerHTML = '<span class="completion-seal" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></span><span>Practice complete. Carry today’s lesson with you.</span>';
+  $('practice-done').textContent = 'Carry today’s lesson with you.';
   renderTimer();
 }
 async function logSession(seconds){
